@@ -21,11 +21,13 @@ const firebaseConfig = {
 
 let val = document.getElementById("val")
 let printe = document.getElementById("print-messge")
+let main_div = document.getElementById("main_div")
 
 const docref= collection(db, "meri piyari todo")
 let send =async()=>{
 
    if(val.value !== ""){
+      main_div.style.cursor="progress"
    // console.log(doc.id);
    await addDoc( docref,{
       value: val.value,
@@ -35,6 +37,7 @@ let send =async()=>{
    
 
    val.value=""
+   main_div.style.cursor=""
 }
 else{
    alert("plzz enter the messge")
@@ -54,22 +57,43 @@ window.send =send
 
 // })
 let emty = []
+
 let todo_load =async()=>{
  
    const querySnapshot = await getDocs(collection(db, "meri piyari todo"));
    querySnapshot.forEach((doc) => {
       emty.push(doc.id)
       printe.innerHTML+=`
-      <h2>${doc.data().value} <button onclick="delet('${doc.id}')">delete</button> 
-      <button onclick="editt('${doc.id}','${doc.data().value}')">edit</button></h2>`
+      <h2>${doc.data().value} <button  onclick="delet('${doc.id}')" id="del1" >delete</button> 
+      <button onclick="editt('${doc.id}','${doc.data().value}')" id="edit">edit</button></h2>`
+
    })
+   
+   
+   
 }
 
 window.todo_load=todo_load
 
 todo_load()
 
+
+// var icon = document.getElementById("del1")
+// icon.addEventListener("mouseover",()=>{
+
+//    icon.style.color="aliceblue"
+//    icon.style.backgroundColor="red"
+//    icon.style.cursor="pointer"
+// })
+
  
+
+
+
+
+
+
+
 
 
 
@@ -78,10 +102,10 @@ todo_load()
 //
 
 let delet=async(id)=> {
-   event.target.parentNode.remove()
+    event.target.parentNode.remove()
 
    await deleteDoc(doc(db, "meri piyari todo", id));
-
+   swal("delete complete!", "You clicked the button!", "success");
 }
 
 window.delet =delet
@@ -92,13 +116,18 @@ let editt =async(id,Value,)=>{
 
 //  console.log()
     let edit = prompt("enter edit name",Value)
+   // printe.innerHTML=`
+   // <input id="edit" type="text" placeholder="'${Value}'" >
+   // `
+//  let edit = document.getElementById("edit")
+if(edit){
     event.target.parentNode.firstChild.nodeValue=edit
     await updateDoc(doc(db, "meri piyari todo",id),{
        value: edit
-      });
+      })
+   }
+   
       
-
-
 }
 
 window.editt = editt
@@ -108,9 +137,20 @@ let delel_all =()=>{
    emty.forEach(async(id)=>{
 console.log(id);
       await deleteDoc(doc(db, "meri piyari todo",id))
-   })
-
+    })
+    // swal("delete All!", "You clicked the button!", "success");
   }
 
   window.delel_all=delel_all
+
+
+
+// let del = document.getElementById("deleteall")
+// del.addEventListener("mouseover",()=>{
+// del.style.color="red"
+// })
+
+
+
+
 

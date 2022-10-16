@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="todo.css">
     <title>todo app</title>
 </head>
 <body >
 
-    <div>
+<div id="main_div">
+    <div id="input_div">
 <input id="val" type="text" placeholder="enter name" >
-<button onclick="send()">send</button>
-<button onclick="delel_all()">delele all</button><br>
+<button onclick="send()" id="add">add</button>
+<button id="deleteall"  onclick="delel_all()">delele all</button><br>
     </div>
 
     <div id="print-messge">
 
     </div>
+<!-- // -->
+</div>
 
-
-
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="todoapp.js" type="module"></script>
 </body>
 </html>

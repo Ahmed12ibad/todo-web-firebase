@@ -11,8 +11,7 @@ body{
 }
 #main_div{
 
-    width: 400px;
-    height: 400px;
+    flex: 0.3;
     background-color: burlywood;
     border-radius: 10px;
     /* display: flex; */

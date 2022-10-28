@@ -59,21 +59,24 @@ window.send =send
 let emty = []
 
 let todo_load =async()=>{
- 
-   const querySnapshot = await getDocs(collection(db, "meri piyari todo"));
-   querySnapshot.forEach((doc) => {
-      emty.push(doc.id)
+
+
+
+   const unsubscribe = onSnapshot(collection(db, "meri piyari todo"), (querySnapshot) => {
+      printe.innerHTML=""
+      querySnapshot.forEach((doc) => { 
+        console.log(doc.data())
+        emty.push(doc.id)   
+        
       printe.innerHTML+=`
       <h2>${doc.data().value} <button  onclick="delet('${doc.id}')" id="del1" >delete</button> 
       <button onclick="editt('${doc.id}','${doc.data().value}')" id="edit">edit</button></h2>`
 
    })
-   
-   
-   
+})
+    
 }
 
-window.todo_load=todo_load
 
 todo_load()
 
